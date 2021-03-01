@@ -1,6 +1,8 @@
 package edu.muniz.askalien.admin.domain
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 
@@ -19,5 +21,10 @@ data class Answer (
     @JsonProperty("link")
     val url: String? = null,
 
-    val video: Video? = null
+    val video: Video? = null,
+
+    @Transient
+    @JsonSerialize
+    @JsonDeserialize
+    val clicks: Long? = null
 )

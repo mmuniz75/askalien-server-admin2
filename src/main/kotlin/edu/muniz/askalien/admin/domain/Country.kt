@@ -19,18 +19,7 @@ data class Country (
     var ip: String? = null,
 
     var country: String? = null)
-
-    {
-
-    constructor(ip: String?, country: String?)  {
-        this.ip = ip
-        this.country = country
-    }
-
-    constructor(country: String?, countQuestions: Long?) {
-        this.countQuestions = countQuestions
-        this.country = country
-    }
+{
 
     fun populate(sourceObject: Country) {
         country = sourceObject.country
