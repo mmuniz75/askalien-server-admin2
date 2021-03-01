@@ -11,20 +11,20 @@ data class Answer (
 
     @Id
     @JsonProperty("number")
-    val id: Int? = null,
+    val id: Int,
 
     @JsonProperty("question")
-    val subject: String? = null,
+    val subject: String,
 
-    val content: String? = null,
+    val content: String,
 
     @JsonProperty("link")
-    val url: String? = null,
+    val url: String?,
 
-    val video: Video? = null,
+    val videoNumber: Int,
 
     @Transient
     @JsonSerialize
     @JsonDeserialize
-    val clicks: Long? = null
+    val clicks: Long?
 )

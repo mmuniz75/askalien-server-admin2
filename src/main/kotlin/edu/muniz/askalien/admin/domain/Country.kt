@@ -9,16 +9,16 @@ import org.springframework.data.relational.core.mapping.Table
 data class Country (
 
     @Id
-    var id: Int? = null,
+    var id: Int,
 
     @Transient
     @JsonSerialize
     @JsonDeserialize
-    var countQuestions: Long? = null,
+    var countQuestions: Long,
 
-    var ip: String? = null,
+    var ip: String?,
 
-    var country: String? = null)
+    var country: String)
 {
 
     fun populate(sourceObject: Country) {
