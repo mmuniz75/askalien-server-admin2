@@ -2,9 +2,9 @@ package edu.muniz.askalien.admin.dto
 
 data class StatisticDTO (
 
-    val totalQuestion: Long,
-    val totalFrequentUsers: Int,
-    val totalUsers: Long?,
-    val totalCountries: Long?,
-    val totalAnswers: Long?
+    var totalQuestion: Long? = null,
+    var totalFrequentUsers: Long? = null,
+    var totalUsers: Long? = null,
+    var totalCountries: Long? = null,
+    var totalAnswers: Long? = null
 )
