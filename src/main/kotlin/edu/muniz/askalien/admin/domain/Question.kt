@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.text.SimpleDateFormat
 import java.util.*
+import org.springframework.data.annotation.Transient
 
 @Table("question")
 data class Question (
@@ -23,15 +24,17 @@ data class Question (
 
     var creator: String? = null,
 
-    @Transient
-    var countUsers: Long? = null,
-
     var country: String? = null,
 
     var answerId: Long? = null
 )
 {
 
+    @Transient
+    var countUsers: Long? = null
+
+    @Transient
+    var answer: Answer? = null
 
     fun populate(newObject: Question) {
         creator = newObject.creator
