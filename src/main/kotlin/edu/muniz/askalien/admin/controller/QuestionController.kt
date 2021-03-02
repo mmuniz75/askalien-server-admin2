@@ -23,7 +23,7 @@ class QuestionController {
     @GetMapping("/questions")
     fun getQuestions(): Flux<Question> {
         val filter = QuestionFilter()
-        filter?.justThisMonth = true
+        filter.justThisMonth = true
         return service.getQuestions(filter)
     }
 

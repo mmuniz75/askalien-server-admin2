@@ -45,7 +45,7 @@ class AnswerService {
     }
 
     private fun saveOrUpdate(answer: Answer, save: Boolean): Mono<Answer> {
-       return  videoService.getVideofromNumber(answer.videoNumber)
+       return  videoService.getVideofromNumber(answer.videoNumber!!)
                .switchIfEmpty(throw IllegalStateException("Video ${answer.videoNumber} does not exists"))
                .then(repo.save(answer))
     }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.annotation.Transient
 
 @Table("answer")
 data class Answer (
@@ -23,14 +24,13 @@ data class Answer (
     var url: String? = null,
 
     @Column("videoNumber")
-    var videoNumber: Int? = null,
-
-    @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    var clicks: Long? = null
+    var videoNumber: Int? = null
 )
 {
+
+    @Transient
+    var clicks: Long? = null
+
     @Transient
     var video: Video? = null
 }

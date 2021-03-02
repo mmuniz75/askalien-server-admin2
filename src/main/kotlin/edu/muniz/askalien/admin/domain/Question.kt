@@ -26,7 +26,9 @@ data class Question (
     @Transient
     var countUsers: Long? = null,
 
-    var country: String? = null
+    var country: String? = null,
+
+    var answerId: Long? = null
 )
 {
 
