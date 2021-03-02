@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono
 
 interface AnswerRepository : ReactiveCrudRepository<Answer, Int> {
 
-    @Query("select * from Answer answer JOIN FETCH answer.video video where answer.id=?1")
+    @Query("select * from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.id=?1")
     fun findAnswerById(id: Int): Mono<Answer>
 
     override fun findById(id: Int): Mono<Answer>

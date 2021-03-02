@@ -19,9 +19,9 @@ class QuestionRepositoryImpl : QuestionCustomizedRepository {
 
         val sql = StringBuilder("select * from Question obj where 1=1 ")
         if (filter.justFeedback) sql.append(" and obj.feedback is not null")
-        if (filter.answerId != null && filter.answerId > 0) sql.append(" and obj.answer.id =" + filter.answerId)
-        if (filter.question != null && filter.question.isNotEmpty()) sql.append(" and obj.text like '%" + filter.question + "%'")
-        if (filter.ipFilter != null && filter.ipFilter.isNotEmpty()) sql.append(" and obj.ip like '%" + filter.ipFilter + "%'")
+        if (filter.answerId != null && filter.answerId!! > 0) sql.append(" and obj.answer.id =" + filter.answerId)
+        if (filter.question != null && filter.question!!.isNotEmpty()) sql.append(" and obj.text like '%" + filter.question + "%'")
+        if (filter.ipFilter != null && filter.ipFilter!!.isNotEmpty()) sql.append(" and obj.ip like '%" + filter.ipFilter + "%'")
 
         if (filter.justThisMonth) {
             val cal = Calendar.getInstance()
