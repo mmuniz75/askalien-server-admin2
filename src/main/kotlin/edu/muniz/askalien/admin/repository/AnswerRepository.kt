@@ -8,10 +8,10 @@ import reactor.core.publisher.Mono
 
 interface AnswerRepository : ReactiveCrudRepository<Answer, Int> {
 
-    @Query("select * from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.id=?1")
+    @Query("select * from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.id=:id")
     fun findAnswerById(id: Int): Mono<Answer>
 
-    override fun findById(id: Int): Mono<Answer>
+    //override fun findById(id: Int): Mono<Answer>
 
     @Query("select * from Answer answer order by id desc ")
     fun findAllSummary(): Flux<Answer>

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 
 @Table("answer")
@@ -11,20 +12,25 @@ data class Answer (
 
     @Id
     @JsonProperty("number")
-    val id: Int,
+    var id: Int? = null,
 
     @JsonProperty("question")
-    val subject: String,
+    var subject: String? = null,
 
-    val content: String,
+    var content: String? = null,
 
     @JsonProperty("link")
-    val url: String?,
+    var url: String? = null,
 
-    val videoNumber: Int,
+    @Column("videoNumber")
+    var videoNumber: Int? = null,
 
     @Transient
     @JsonSerialize
     @JsonDeserialize
-    val clicks: Long?
+    var clicks: Long? = null
 )
+{
+    @Transient
+    var video: Video? = null
+}
