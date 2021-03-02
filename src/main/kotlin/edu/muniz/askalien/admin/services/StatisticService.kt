@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.services
 
 import edu.muniz.askalien.admin.dto.StatisticDTO
+import kotlinx.coroutines.reactive.awaitFirst
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono

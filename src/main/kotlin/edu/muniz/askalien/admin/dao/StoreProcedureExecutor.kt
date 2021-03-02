@@ -15,8 +15,8 @@ class StoreProcedureExecutor {
     lateinit var databaseClient: DatabaseClient
 
     suspend fun executeProc(procedureName : String ) {
-         databaseClient.sql("exec ${procedureName}()").await()
-         println("store procedure update_usage executed")
+         databaseClient.sql("exec $procedureName()").await()
+         println("store procedure $procedureName executed")
     }
 
 //    suspend fun buildExecuteProc(procedureName : String )  {
