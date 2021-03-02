@@ -1,20 +1,19 @@
 package edu.muniz.askalien.admin.domain
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+//import org.springframework.data.annotation.Transient
 
 @Table("country")
 data class Country (
 
     @Id
-    var id: Int,
+    var id: Int? = null,
 
     @Transient
-    @JsonSerialize
-    @JsonDeserialize
-    var countQuestions: Long,
+    @Column("countquestions")
+    var countQuestions: Long? = null,
 
     var ip: String?,
 
