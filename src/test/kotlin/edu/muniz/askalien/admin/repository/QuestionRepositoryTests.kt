@@ -53,7 +53,7 @@ class QuestionRepositoryTests {
     fun getQuestionsThisMonth() {
         val filter = QuestionFilter(justThisMonth = true)
         val questions: List<Question> = repo.findAll(filter).collectList().block()!!
-        val checkedQuestions = questions.filter{checkDate(it.creationDate!!) }
+        val checkedQuestions = questions.filter{it.creationDate!!.month == LocalDate.now().month }
 
         Assert.assertTrue(questions.size == checkedQuestions.size)
     }
