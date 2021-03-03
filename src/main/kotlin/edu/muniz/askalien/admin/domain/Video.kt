@@ -1,17 +1,22 @@
 package edu.muniz.askalien.admin.domain
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
 @Table("video")
 data class Video (
     @Id
-    var id: Int? = null,
+    var id: Integer? = null,
     var number: Int? = null,
-    var creationDate: Date? = null
+
+    @Column("creationdate")
+    var creationDate: LocalDate? = null
     )
 
 {
@@ -24,7 +29,7 @@ data class Video (
     fun getFormatedCreationDate(): String? {
         var date = ""
         if (creationDate != null) {
-            val dt1 = SimpleDateFormat("yyyy-MM-dd")
+            val dt1 = DateTimeFormatter.ofPattern("yyyy-MM-dd")
             date = dt1.format(creationDate)
         }
         return date
