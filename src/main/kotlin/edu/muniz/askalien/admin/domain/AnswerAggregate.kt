@@ -1,13 +1,15 @@
 package edu.muniz.askalien.admin.domain
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.Transient
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import org.springframework.data.annotation.Transient
 
 @Table("answer")
-data class Answer (
+data class AnswerAggregate (
 
     @Id
     @JsonProperty("number")
@@ -21,12 +23,12 @@ data class Answer (
     @JsonProperty("link")
     var url: String? = null,
 
-    @Column("videoNumber")
-    var videoNumber: Int? = null
+    var clicks: Long? = null
 )
 {
 
-    @Transient
-    var clicks: Long? = null
+    val video: Video
+        get() = Video(number = this.number)
 
+    var number: Int? = null
 }

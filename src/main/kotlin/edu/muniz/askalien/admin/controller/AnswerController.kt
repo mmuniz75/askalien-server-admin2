@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.controller
 
 import edu.muniz.askalien.admin.domain.Answer
+import edu.muniz.askalien.admin.domain.AnswerAggregate
 import edu.muniz.askalien.admin.services.AnswerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -34,12 +35,12 @@ class AnswerController {
     }
 
     @GetMapping("/admin/answer/{id}")
-    fun getAnswerDetail(@PathVariable id: Int): Mono<Answer> {
+    fun getAnswerDetail(@PathVariable id: Int): Mono<AnswerAggregate> {
         return service.getAnswer(id)
     }
 
     @GetMapping("/answer/{id}")
-    fun getAnswerDetail2(@PathVariable id: Int): Mono<Answer> {
+    fun getAnswerDetail2(@PathVariable id: Int): Mono<AnswerAggregate> {
         return service.getAnswer(id)
     }
 

@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.repository
 
 import edu.muniz.askalien.admin.domain.Answer
+import edu.muniz.askalien.admin.domain.AnswerAggregate
 import org.springframework.data.r2dbc.repository.Query
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import reactor.core.publisher.Flux
@@ -9,7 +10,7 @@ import reactor.core.publisher.Mono
 interface AnswerRepository : ReactiveCrudRepository<Answer, Int> {
 
     @Query("select * from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.id=:id")
-    fun findAnswerById(id: Int): Mono<Answer>
+    fun findAnswerById(id: Int): Mono<AnswerAggregate>
 
     //override fun findById(id: Int): Mono<Answer>
 
@@ -36,6 +37,6 @@ interface AnswerRepository : ReactiveCrudRepository<Answer, Int> {
     fun findTopAnswersJustFeedBack(): Flux<Answer>
 
     @Query("select * from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.url=?1")
-    fun findByUrl(url: String): Mono<Answer>
+    fun findByUrl(url: String): Mono<AnswerAggregate>
 
 }

@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.services
 
 import edu.muniz.askalien.admin.domain.Answer
+import edu.muniz.askalien.admin.domain.AnswerAggregate
 import edu.muniz.askalien.admin.repository.AnswerRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -32,7 +33,7 @@ class AnswerService {
         return repo.findById(id)
     }
 
-    fun getAnswer(id: Int): Mono<Answer> {
+    fun getAnswer(id: Int): Mono<AnswerAggregate> {
         return repo.findAnswerById(id)
     }
 

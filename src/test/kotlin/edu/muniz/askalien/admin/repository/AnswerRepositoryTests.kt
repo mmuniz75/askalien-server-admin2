@@ -3,6 +3,7 @@ package edu.muniz.askalien.admin.repository
 import edu.muniz.askalien.admin.domain.Answer
 import edu.muniz.askalien.admin.domain.Video
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.reactive.awaitFirst
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,8 +21,9 @@ class AnswerRepositoryTests {
 
     @Test
     fun testFindAnwer() {
-        val answer = repo.findById(1).block()
-        assertEquals(answer?.subject, "Is the planet Earth is undergoing a transformation in the near future?")
+        val answer = repo.findAnswerById(708).block()
+        assertEquals("Why there is some explotions seen from moon?",answer?.subject)
+        assertTrue(98 === answer?.video?.number)
     }
 
     @Test
@@ -31,21 +33,27 @@ class AnswerRepositoryTests {
             val SUBJECT = "sample question"
             val CONTENT = "we dont have answer for that"
             val URL = "www.youyube.com.br"
-            val VIDEO = 10
+            val VIDEO = 99
             var answer = Answer()
-            answer.content = CONTENT
-            answer.subject = SUBJECT
-            answer.url = URL
-            answer.videoNumber = VIDEO
+
+            answer.apply {
+                content = CONTENT
+                subject = SUBJECT
+                url = URL
+                videoNumber = VIDEO
+            }
 
             answer = repo.save(answer).block()!!
             id = answer.id
 
-            answer = repo.findAnswerById(id!!).block()!!
-            org.junit.Assert.assertEquals(SUBJECT, answer.subject)
-            org.junit.Assert.assertEquals(CONTENT, answer.content)
-            org.junit.Assert.assertEquals(URL, answer.url)
-            org.junit.Assert.assertTrue(VIDEO === answer?.videoNumber)
+            answer = repo.findById(id!!).block()!!
+            answer.apply {
+                assertEquals(SUBJECT, subject)
+                assertEquals(CONTENT, content)
+                assertEquals(URL, url)
+                assertTrue(VIDEO === videoNumber)
+            }
+
         }catch (ex : Exception){
             ex.printStackTrace()
             throw ex
@@ -67,25 +75,32 @@ class AnswerRepositoryTests {
             val URL_UDATED = "www.google.com.br"
             val VIDEO_UDATED = 20
             var answer = Answer()
-            answer.content = CONTENT
-            answer.subject = SUBJECT
-            answer.url = URL
-            answer.videoNumber = VIDEO
-            repo.save(answer).block()
+            answer.apply {
+                content = CONTENT
+                subject = SUBJECT
+                url = URL
+                videoNumber = VIDEO
+            }
+
+            answer = repo.save(answer).block()!!
             id = answer.id
 
-            answer = repo.findAnswerById(id!!).block()!!
-            answer.content = CONTENT_UDATED
-            answer.subject = SUBJECT_UDATED
-            answer.url = URL_UDATED
-            answer.videoNumber = VIDEO_UDATED
+            answer = repo.findById(id!!).block()!!
+
+            answer.apply {
+                answer.content = CONTENT_UDATED
+                answer.subject = SUBJECT_UDATED
+                answer.url = URL_UDATED
+                answer.videoNumber = VIDEO_UDATED
+            }
+
             repo.save(answer).block()
 
-            answer = repo.findAnswerById(id).block()!!
-            org.junit.Assert.assertEquals(SUBJECT_UDATED, answer.subject)
-            org.junit.Assert.assertEquals(CONTENT_UDATED, answer.content)
-            org.junit.Assert.assertEquals(URL_UDATED, answer.url)
-            org.junit.Assert.assertTrue(VIDEO_UDATED === answer?.videoNumber)
+            answer = repo.findById(id).block()!!
+            assertEquals(SUBJECT_UDATED, answer.subject)
+            assertEquals(CONTENT_UDATED, answer.content)
+            assertEquals(URL_UDATED, answer.url)
+            assertTrue(VIDEO_UDATED === answer?.videoNumber)
         }catch (ex : Exception){
             ex.printStackTrace()
             throw ex
