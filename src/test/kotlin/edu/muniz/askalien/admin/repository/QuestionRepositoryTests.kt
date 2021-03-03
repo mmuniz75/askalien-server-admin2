@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.repository
 
 import edu.muniz.askalien.admin.domain.Question
+import junit.framework.Assert.assertNotNull
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,7 +46,7 @@ class QuestionRepositoryTests {
     fun getQuestionsWithFeedBack() {
         val filter = QuestionFilter(justFeedback = true)
         val questions: List<Question> = repo.findAll(filter).collectList().block()!!
-        for (question in questions) Assert.assertNotNull(question.feedback)
+        for (question in questions) assertNotNull(question.feedback)
     }
 
     @Test
@@ -83,21 +84,21 @@ class QuestionRepositoryTests {
 
     @Test
     fun getQuestionsByDates() {
-        val filter = QuestionFilter(startDate = getDate(2012, 4, 1), endDate = getDate(2012, 4, 30))
+        val filter = QuestionFilter(startDate = LocalDate.of(2012, 4, 1), endDate = LocalDate.of(2012, 4, 30))
         val questions: List<Question> = repo.findAll(filter).collectList().block()!!
         Assert.assertTrue(questions.size == 46)
     }
 
     @Test
     fun getQuestionsEndDate() {
-        val filter = QuestionFilter(endDate = getDate(2012, 3, 31))
+        val filter = QuestionFilter(endDate = LocalDate.of(2012, 3, 31))
         val questions: List<Question> = repo.findAll(filter).collectList().block()!!
         Assert.assertTrue(questions.size == 201)
     }
 
     @Test
     fun getQuestionsStartDate() {
-        val filter = QuestionFilter(startDate = getDate(2017, 10, 1))
+        val filter = QuestionFilter(startDate = LocalDate.of(2017, 10, 1))
         val questions: List<Question> = repo.findAll(filter).collectList().block()!!
         Assert.assertTrue(questions.size >= 2000)
     }
@@ -105,10 +106,6 @@ class QuestionRepositoryTests {
     private fun checkDate(date1: LocalDateTime): Boolean {
         val now = LocalDateTime.now()
         return date1.isAfter(now) || date1.compareTo(now) == 0
-    }
-
-    private fun getDate(year: Int, month: Int, day: Int): Date {
-        return Date.from(LocalDateTime.of(year, month, day, 0, 0, 0).atZone(ZoneId.systemDefault()).toInstant())
     }
 
     @Test

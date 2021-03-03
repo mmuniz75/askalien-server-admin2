@@ -11,7 +11,7 @@ import java.time.LocalDateTime
 data class Question (
 
     @Id
-    var id: Int? = null,
+    var id: Integer? = null,
 
     var ip: String? = null,
 
@@ -43,13 +43,6 @@ data class Question (
 
     @Transient
     var subject: String? = null
-
-    fun populate(newObject: Question) {
-        creator = newObject.creator
-        email = newObject.email
-        feedback = newObject.feedback
-        country = newObject.country
-    }
 
     val date: String
         get() {
