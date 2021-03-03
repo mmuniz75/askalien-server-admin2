@@ -6,6 +6,7 @@ import io.r2dbc.spi.RowMetadata
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.r2dbc.core.DatabaseClient
 import reactor.core.publisher.Flux
+import java.time.LocalDateTime
 import java.util.*
 import java.util.function.BiFunction
 
@@ -46,7 +47,7 @@ class QuestionRepositoryImpl : QuestionCustomizedRepository {
                     row.get("text", String::class.java),
                     row.get("email", String::class.java),
                     row.get("feedback", String::class.java),
-                    row.get("creationDate", Date::class.java),
+                    row.get("creationDate", LocalDateTime::class.java),
                     row.get("creator", String::class.java)
                     )
         }

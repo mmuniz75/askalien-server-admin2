@@ -24,12 +24,11 @@ class QuestionRepositoryTests {
     fun getQuestionById() {
         val CONTENT = "<font face=\"Arial, Verdana\"><span style=\"font-size: 13.3333330154419px;\">These planets are here in your own galaxy, a solar system 70 light years away. They are colonies of humanoids, very similar to this one.&nbsp;</span></font><div><font face=\"Arial, Ver"
         val SUBJECT = "In an earlier video you mentioned there are two other earth like planets getting ready to go thru stages in their development. Where are these planets located? How far along are they in their development?"
-        val CREATION_DATE = LocalDate.of(2017, 8, 15)
+        val CREATION_DATE = LocalDateTime.of(2017, 8, 15,21,36,31,291000000)
 
         val question = repo.findQuestionById(83755).block()
 
         question?.apply {
-            val creationDate = creationDate?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDate()
             Assert.assertTrue(creationDate?.isEqual(CREATION_DATE)!!)
             Assert.assertEquals("81.193.48.239", ip)
             Assert.assertEquals("PORTUGAL", country)
@@ -103,10 +102,9 @@ class QuestionRepositoryTests {
         Assert.assertTrue(questions.size >= 2000)
     }
 
-    private fun checkDate(date1: Date): Boolean {
-        val now = LocalDate.now()
-        val date2 = getDate(now.year, now.monthValue, 1)
-        return date1.after(date2) || date1.compareTo(date2) == 0
+    private fun checkDate(date1: LocalDateTime): Boolean {
+        val now = LocalDateTime.now()
+        return date1.isAfter(now) || date1.compareTo(now) == 0
     }
 
     private fun getDate(year: Int, month: Int, day: Int): Date {

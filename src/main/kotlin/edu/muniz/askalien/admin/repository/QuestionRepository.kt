@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono
 
 interface QuestionRepository : ReactiveCrudRepository<Question, Integer>,QuestionCustomizedRepository{
 
-    @Query("select * from Question question JOIN FETCH question.answer answer where question.id=?1")
+    @Query("select * from Question question inner JOIN answer on question.answer_id = answer.id where question.id=:id")
     fun findQuestionById(id: Int): Mono<Question>
 
     fun findByAnswerIdAndFeedbackIsNotNull(id: Int): Flux<Question>

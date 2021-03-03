@@ -3,8 +3,9 @@ package edu.muniz.askalien.admin.domain
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.text.SimpleDateFormat
-import java.util.*
-import org.springframework.data.annotation.Transient
+//import org.springframework.data.annotation.Transient
+import org.springframework.data.relational.core.mapping.Column
+import java.time.LocalDateTime
 
 @Table("question")
 data class Question (
@@ -20,7 +21,8 @@ data class Question (
 
     var feedback: String? = null,
 
-    var creationDate: Date? = null,
+    @Column("creationdate")
+    var creationDate: LocalDateTime? = null,
 
     var creator: String? = null,
 
@@ -33,8 +35,14 @@ data class Question (
     @Transient
     var countUsers: Long? = null
 
+    val answer: Answer
+        get() = Answer(content = this.content, subject = this.subject)
+
     @Transient
-    var answer: Answer? = null
+    var content: String? = null
+
+    @Transient
+    var subject: String? = null
 
     fun populate(newObject: Question) {
         creator = newObject.creator
@@ -45,10 +53,8 @@ data class Question (
 
     val date: String
         get() {
-            var date = ""
             val dt1 = SimpleDateFormat("MM/dd/yyyy hh:mm")
-            date = dt1.format(creationDate)
-            return date
+            return dt1.format(creationDate)
         }
 
 }
