@@ -22,7 +22,7 @@ data class Question (
     var feedback: String? = null,
 
     @Column("creationdate")
-    var creationDate: LocalDateTime? = null,
+    var creationDate: LocalDateTime? = LocalDateTime.now(),
 
     var creator: String? = null,
 
@@ -49,5 +49,6 @@ data class Question (
             val dt1 = SimpleDateFormat("MM/dd/yyyy hh:mm")
             return dt1.format(creationDate)
         }
+
 
 }
