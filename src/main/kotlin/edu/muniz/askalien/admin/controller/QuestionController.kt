@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.controller
 
 import edu.muniz.askalien.admin.domain.Question
+import edu.muniz.askalien.admin.domain.QuestionAggregate
 import edu.muniz.askalien.admin.repository.QuestionFilter
 import edu.muniz.askalien.admin.services.QuestionService
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,7 +29,7 @@ class QuestionController {
     }
 
     @GetMapping("/question/{id}")
-    fun getQuestion(@PathVariable id: Int): Mono<Question> {
+    fun getQuestion(@PathVariable id: Int): Mono<QuestionAggregate> {
         return service.getQuestion(id)
     }
 

@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.services
 
 import edu.muniz.askalien.admin.domain.Question
+import edu.muniz.askalien.admin.domain.QuestionAggregate
 import edu.muniz.askalien.admin.repository.QuestionFilter
 import edu.muniz.askalien.admin.repository.QuestionRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,7 +19,7 @@ class QuestionService {
         return questionRepo.findAll(filter)
     }
 
-    fun getQuestion(id: Int): Mono<Question> {
+    fun getQuestion(id: Int): Mono<QuestionAggregate> {
         return questionRepo.findQuestionById(id)
     }
 

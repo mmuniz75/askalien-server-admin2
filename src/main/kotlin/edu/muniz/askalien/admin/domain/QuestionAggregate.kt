@@ -7,7 +7,7 @@ import org.springframework.data.relational.core.mapping.Column
 import java.time.LocalDateTime
 
 @Table("question")
-data class Question (
+data class QuestionAggregate (
 
     @Id
     var id: Integer? = null,
@@ -30,6 +30,15 @@ data class Question (
     var answerId: Long? = null
 )
 {
+
+    var countUsers: Long? = null
+
+    val answer: Answer
+        get() = Answer(content = this.content, subject = this.subject)
+
+    var content: String? = null
+
+    var subject: String? = null
 
     val date: String
         get() {

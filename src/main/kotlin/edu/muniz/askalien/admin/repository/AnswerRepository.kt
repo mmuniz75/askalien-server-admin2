@@ -24,17 +24,17 @@ interface AnswerRepository : ReactiveCrudRepository<Answer, Int> {
     fun findAllSummaryBloc(from: Int, to: Int): Flux<Answer>
 
     @Query("SELECT answer.id, answer.subject, count(question.id) as clicks  "
-            + "FROM Question question join question.answer answer "
+            + "FROM question inner join answer ON question.answer_id = answer.id "
             + "GROUP BY answer.id, answer.subject "
             + "ORDER BY 3 desc")
-    fun findTopAnswers(): Flux<Answer>
+    fun findTopAnswers(): Flux<AnswerAggregate>
 
     @Query("SELECT answer.id, answer.subject, count(question.id) as clicks  "
-            + "FROM Question question join question.answer answer "
+            + "FROM question inner join answer ON question.answer_id = answer.id "
             + "WHERE question.feedback is not null "
             + "GROUP BY answer.id, answer.subject "
             + "ORDER BY 3 desc")
-    fun findTopAnswersJustFeedBack(): Flux<Answer>
+    fun findTopAnswersJustFeedBack(): Flux<AnswerAggregate>
 
     @Query("select * from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.url=?1")
     fun findByUrl(url: String): Mono<AnswerAggregate>

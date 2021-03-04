@@ -55,7 +55,7 @@ class AnswerController {
     }
 
     @GetMapping("/admin/topanswers")
-    fun getTopAnswers(@RequestParam feedback: Boolean): Flux<Answer> {
+    fun getTopAnswers(@RequestParam feedback: Boolean): Flux<AnswerAggregate> {
         return service.getTopAnswers(feedback)
     }
 }
