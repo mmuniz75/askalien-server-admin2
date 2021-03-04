@@ -88,19 +88,23 @@ class AnswerRepositoryTests {
             answer = repo.findById(id!!).block()!!
 
             answer.apply {
-                answer.content = CONTENT_UDATED
-                answer.subject = SUBJECT_UDATED
-                answer.url = URL_UDATED
-                answer.videoNumber = VIDEO_UDATED
+                content = CONTENT_UDATED
+                subject = SUBJECT_UDATED
+                url = URL_UDATED
+                videoNumber = VIDEO_UDATED
             }
 
             repo.save(answer).block()
 
             answer = repo.findById(id).block()!!
-            assertEquals(SUBJECT_UDATED, answer.subject)
-            assertEquals(CONTENT_UDATED, answer.content)
-            assertEquals(URL_UDATED, answer.url)
-            assertTrue(VIDEO_UDATED === answer?.videoNumber)
+
+            answer.apply {
+                assertEquals(SUBJECT_UDATED, subject)
+                assertEquals(CONTENT_UDATED, content)
+                assertEquals(URL_UDATED, url)
+                assertTrue(VIDEO_UDATED === videoNumber)
+            }
+
         }catch (ex : Exception){
             ex.printStackTrace()
             throw ex

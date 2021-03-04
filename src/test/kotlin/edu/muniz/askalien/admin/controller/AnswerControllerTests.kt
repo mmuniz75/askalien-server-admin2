@@ -20,6 +20,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import reactor.core.publisher.Mono
 import java.util.function.Consumer
 
 
@@ -125,7 +126,7 @@ class AnswerControllerTests {
 
     }
 
-/*
+
     @Test
     fun testUpdateAnswer() {
         var id: Int? = null
@@ -147,17 +148,19 @@ class AnswerControllerTests {
 
             answer.apply {
                 content = CONTENT_UDATED
-                subject = SUBJECT
+                subject = SUBJECT_UDATED
                 url = URL_UDATED
                 videoNumber = VIDEO_UPDATED
             }
 
             val URL2 = "/admin2/answer"
-            val requestJson = mapper.writeValueAsString(answer)
 
-            mvc!!.perform(MockMvcRequestBuilders.put(URL2).contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
-                    .andExpect(status().isOk)
+            webTestClient.put()
+                    .uri(URL2)
+                    .body(Mono.just(answer), Answer::class.java)
+                    .exchange()
+                    .expectStatus().isOk()
+
 
             answer = repo.findById(id).block()!!
 
@@ -168,6 +171,9 @@ class AnswerControllerTests {
                 assertTrue(VIDEO_UPDATED === answer.videoNumber)
             }
 
+        }catch (ex : Exception){
+            ex.printStackTrace()
+            throw ex
         } finally {
             if (id != null) service.removeAnswer(id)
         }
@@ -175,7 +181,9 @@ class AnswerControllerTests {
 
     @Test
     fun testAddAnswer() {
+        val URL2 = "/admin2/answer"
         var id: Int? = null
+
         try {
             val SUBJECT = "sample question"
             val CONTENT = "we dont have answer for that"
@@ -183,12 +191,11 @@ class AnswerControllerTests {
             val VIDEO = 1
 
             var answer = Answer(subject = SUBJECT, content = CONTENT, url = URL, videoNumber = VIDEO)
-
-            val URL2 = "/admin2/answer"
-            val requestJson = mapper.writeValueAsString(answer)
-            mvc!!.perform(MockMvcRequestBuilders.post(URL2).contentType(MediaType.APPLICATION_JSON)
-                    .content(requestJson))
-                    .andExpect(status().isOk)
+            webTestClient.post()
+                    .uri(URL2)
+                    .body(Mono.just(answer), Answer::class.java)
+                    .exchange()
+                    .expectStatus().isOk()
 
             val answer2 = repo.findByUrl(URL).block()!!
             id = answer2.id
@@ -200,10 +207,13 @@ class AnswerControllerTests {
                 assertTrue(VIDEO === videoNumber)
             }
 
+        }catch (ex : Exception){
+            ex.printStackTrace()
+            throw ex
         } finally {
-            if (id != null) service.removeAnswer(id)
+            if (id != null) service.removeAnswer(id).block()
         }
     }
 
- */
+
 }
