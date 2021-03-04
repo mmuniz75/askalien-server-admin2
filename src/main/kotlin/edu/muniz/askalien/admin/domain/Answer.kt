@@ -24,9 +24,3 @@ data class Answer (
     @Column("videoNumber")
     var videoNumber: Int? = null
 )
-{
-
-    @Transient
-    var clicks: Long? = null
-
-}

@@ -20,6 +20,12 @@ class VideoRepositoryTests {
     lateinit var repo: VideoRepository
 
     @Test
+    fun testFindVideo(){
+        val video = repo.findById(1).block()
+        assertEquals(1, video?.number)
+    }
+
+    @Test
     fun testVideoQuestions() {
         val videos = repo.findAllByOrderByNumberDesc().collectList().block()!!
         val size = videos.size
@@ -57,7 +63,7 @@ class VideoRepositoryTests {
         val NUMBER = -1
         val CREATION_DATE = LocalDate.of(2100, 7, 15)
         val CREATION_DATE_UPDATED = LocalDate.of(2100, 7, 15)
-        var video = Video(creationDate = CREATION_DATE,number = NUMBER)
+        var video = Video(creationDate = CREATION_DATE, number = NUMBER)
 
         video = repo.save(video).block()!!
         val id = video.id!!

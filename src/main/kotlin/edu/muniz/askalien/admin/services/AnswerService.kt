@@ -3,6 +3,7 @@ package edu.muniz.askalien.admin.services
 import edu.muniz.askalien.admin.domain.Answer
 import edu.muniz.askalien.admin.domain.AnswerAggregate
 import edu.muniz.askalien.admin.repository.AnswerRepository
+import edu.muniz.askalien.admin.repository.VideoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
@@ -15,7 +16,7 @@ class AnswerService {
     lateinit var repo: AnswerRepository
 
     @Autowired
-    lateinit var videoService: VideoService
+    lateinit var videoRepository: VideoRepository
 
     fun getAnswers(): Flux<Answer> {
         return repo.findAllSummary()
@@ -46,12 +47,11 @@ class AnswerService {
     }
 
     private fun saveOrUpdate(answer: Answer, save: Boolean): Mono<Answer> {
-       return  videoService.getVideofromNumber(answer.videoNumber!!)
-               .switchIfEmpty(throw IllegalStateException("Video ${answer.videoNumber} does not exists"))
+       return  videoRepository.findById(answer.videoNumber!!)
                .then(repo.save(answer))
     }
 
-    fun getTopAnswers(feedBack: Boolean): Flux<Answer> {
+    fun getTopAnswers(feedBack: Boolean): Flux<AnswerAggregate> {
         return if (feedBack) repo.findTopAnswersJustFeedBack() else repo.findTopAnswers()
     }
 
