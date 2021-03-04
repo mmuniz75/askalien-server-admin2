@@ -32,7 +32,7 @@ class QuestionRepositoryImpl : QuestionCustomizedRepository {
         if (filter.ipFilter != null && filter.ipFilter!!.isNotEmpty()) sql.append(" and obj.ip like '%" + filter.ipFilter + "%'")
 
         if (filter.justThisMonth) {
-            val date = LocalDate.now().apply { withDayOfMonth(1) }
+            val date = LocalDate.now().withDayOfMonth(1)
             sql.append(" and obj.creationDate >= '${formatDBDate(date)}'")
         }
 
@@ -49,7 +49,9 @@ class QuestionRepositoryImpl : QuestionCustomizedRepository {
                     row.get("email", String::class.java),
                     row.get("feedback", String::class.java),
                     row.get("creationDate", LocalDateTime::class.java),
-                    row.get("creator", String::class.java)
+                    row.get("creator", String::class.java),
+                    row.get("country", String::class.java),
+                    row.get("answer_id", Integer::class.java)
                     )
         }
 

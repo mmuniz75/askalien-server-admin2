@@ -1,5 +1,6 @@
 package edu.muniz.askalien.admin.domain
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.text.SimpleDateFormat
@@ -21,6 +22,7 @@ data class QuestionAggregate (
     var feedback: String? = null,
 
     @Column("creationdate")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy hh:mm")
     var creationDate: LocalDateTime? = LocalDateTime.now(),
 
     var creator: String? = null,
@@ -39,12 +41,5 @@ data class QuestionAggregate (
     var content: String? = null
 
     var subject: String? = null
-
-    val date: String
-        get() {
-            val dt1 = SimpleDateFormat("MM/dd/yyyy hh:mm")
-            return dt1.format(creationDate)
-        }
-
 
 }

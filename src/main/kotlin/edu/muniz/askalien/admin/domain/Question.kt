@@ -1,41 +1,34 @@
 package edu.muniz.askalien.admin.domain
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.text.SimpleDateFormat
-import org.springframework.data.relational.core.mapping.Column
 import java.time.LocalDateTime
 
 @Table("question")
-data class Question (
+data class Question(
 
-    @Id
-    var id: Integer? = null,
+        @Id
+        var id: Integer? = null,
 
-    var ip: String? = null,
+        var ip: String? = null,
 
-    var text: String? = null,
+        var text: String? = null,
 
-    var email: String? = null,
+        var email: String? = null,
 
-    var feedback: String? = null,
+        var feedback: String? = null,
 
-    @Column("creationdate")
-    var creationDate: LocalDateTime? = LocalDateTime.now(),
+        @Column("creationdate")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+        var creationDate: LocalDateTime? = LocalDateTime.now(),
 
-    var creator: String? = null,
+        var creator: String? = null,
 
-    var country: String? = null,
+        var country: String? = null,
 
-    var answerId: Long? = null
+        @Column("answer_id")
+        var answerId: Integer? = null
 )
-{
-
-    val date: String
-        get() {
-            val dt1 = SimpleDateFormat("MM/dd/yyyy hh:mm")
-            return dt1.format(creationDate)
-        }
-
-
-}
