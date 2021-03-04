@@ -1,10 +1,10 @@
 package edu.muniz.askalien.admin.controller
 
 import edu.muniz.askalien.admin.services.CountryService
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
@@ -12,6 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @RunWith(SpringRunner::class)
 @SpringBootTest
+@AutoConfigureWebTestClient
 class CountryControllerTests {
 
     @Autowired
@@ -21,7 +22,6 @@ class CountryControllerTests {
     lateinit var webTestClient: WebTestClient
 
     @Test
-    @Ignore
     fun getCountries() {
         val URL = "/admin/countries"
         val countries = service.getCountryQuestions().collectList().block()!!
