@@ -12,9 +12,8 @@ class StoreProcedureExecutor {
     @Autowired
     lateinit var databaseClient: DatabaseClient
 
-    fun executeProc(procedureName : String ): Mono<MutableMap<String, Any>> {
-         return databaseClient.sql("select $procedureName()").fetch().first()
-
+    fun executeProc(procedureName: String): Mono<Int> {
+         return databaseClient.sql("select $procedureName()").fetch().rowsUpdated()
     }
 
 }
