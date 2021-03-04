@@ -2,6 +2,7 @@ package edu.muniz.askalien.admin.services
 
 import edu.muniz.askalien.admin.domain.Answer
 import edu.muniz.askalien.admin.domain.AnswerAggregate
+import edu.muniz.askalien.admin.domain.AnswerSummary
 import edu.muniz.askalien.admin.repository.AnswerRepository
 import edu.muniz.askalien.admin.repository.VideoRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -30,8 +31,8 @@ class AnswerService {
         return repo.findAllSummaryBloc(from, to)
     }
 
-    fun getAnswerSummary(id: Int): Mono<Answer> {
-        return repo.findById(id)
+    fun getAnswerSummary(id: Int): Mono<AnswerSummary> {
+        return repo.findSummaryById(id)
     }
 
     fun getAnswer(id: Int): Mono<AnswerAggregate> {

@@ -109,17 +109,23 @@ class AnswerControllerTests {
                 .jsonPath("$.video.number").isEqualTo(1)
     }
 
-/*
+
     @Test
     fun getAnswerSummary() {
         val SUBJECT = "Where did the humans on Earth orginate from?"
         val URL = "/admin/summary-answer/2"
-        mvc!!.perform(MockMvcRequestBuilders.get(URL))
-                .andExpect(status().isOk)
-                .andExpect(jsonPath("id", CoreMatchers.`is`(2)))
-                .andExpect(jsonPath("subject", CoreMatchers.`is`(SUBJECT)))
+
+        webTestClient.get()
+                .uri(URL)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.id").isEqualTo(2)
+                .jsonPath("$.subject").isEqualTo(SUBJECT)
+
     }
 
+/*
     @Test
     fun testUpdateAnswer() {
         var id: Int? = null

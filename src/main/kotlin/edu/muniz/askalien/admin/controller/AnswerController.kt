@@ -2,6 +2,7 @@ package edu.muniz.askalien.admin.controller
 
 import edu.muniz.askalien.admin.domain.Answer
 import edu.muniz.askalien.admin.domain.AnswerAggregate
+import edu.muniz.askalien.admin.domain.AnswerSummary
 import edu.muniz.askalien.admin.services.AnswerService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -30,7 +31,7 @@ class AnswerController {
     }
 
     @GetMapping("/admin/summary-answer/{id}")
-    fun getAnswer(@PathVariable id: Int): Mono<Answer> {
+    fun getAnswer(@PathVariable id: Int): Mono<AnswerSummary> {
         return service.getAnswerSummary(id)
     }
 
