@@ -9,7 +9,9 @@ import reactor.core.publisher.Mono
 
 interface AnswerRepository : ReactiveCrudRepository<Answer, Int> {
 
-    @Query("select * from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.id=:id")
+    @Query("""select answer.id, answer.subject, answer.content, answer.url, video.number as numberFromVideo,video.creationDate as datefromvideo 
+                    from Answer answer INNER JOIN video ON answer.videoNumber = video.id where answer.id=:id
+                 """)
     fun findAnswerById(id: Int): Mono<AnswerAggregate>
 
     //override fun findById(id: Int): Mono<Answer>
@@ -29,7 +31,7 @@ interface AnswerRepository : ReactiveCrudRepository<Answer, Int> {
             + "ORDER BY 3 desc")
     fun findTopAnswers(): Flux<AnswerAggregate>
 
-    @Query("SELECT answer.id, answer.subject, count(question.id) as clicks  "
+    @Query("SELECT answer.id, answer.subject, count(question.id) as clicks "
             + "FROM question inner join answer ON question.answer_id = answer.id "
             + "WHERE question.feedback is not null "
             + "GROUP BY answer.id, answer.subject "

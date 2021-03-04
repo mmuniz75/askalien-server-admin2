@@ -2,7 +2,9 @@ package edu.muniz.askalien.admin.domain
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
+import java.time.LocalDate
 
 @Table("answer")
 data class AnswerAggregate (
@@ -19,12 +21,19 @@ data class AnswerAggregate (
     @JsonProperty("link")
     var url: String? = null,
 
-    var clicks: Long? = null
+    var clicks: Long? = null,
+
+    @Column("videoNumber")
+    var videoNumber: Int? = null
 )
 {
 
     val video: Video
-        get() = Video(number = this.number)
+        get() = Video(number = this.numberFromVideo, creationDate = this.dateFromVideo)
 
-    var number: Int? = null
+    @Column("numberfromvideo")
+    var numberFromVideo: Int? = null
+
+    @Column("datefromvideo")
+    var dateFromVideo: LocalDate? = null
 }

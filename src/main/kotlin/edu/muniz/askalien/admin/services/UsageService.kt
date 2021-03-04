@@ -6,6 +6,7 @@ import edu.muniz.askalien.admin.repository.UsageRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 import java.util.*
 
 @Service
@@ -17,11 +18,9 @@ class UsageService {
     @Autowired
     lateinit var dao:StoreProcedureExecutor
 
-    suspend fun getUsageFromYear(year: Short): Flux<Usage> {
-        println("executing store procedure update_usage")
-        dao.executeProc("update_usage")
-        println("pass store procedure called")
-        return repo.findByYearOrderByMonthAsc(year);
+    fun getUsageFromYear(year: Short): Flux<Usage> {
+        return dao.executeProc("update_usage")
+               .then(repo.findByYearOrderByMonthAsc(year))
     }
 
     fun getYears(): List<Short> {
@@ -33,7 +32,13 @@ class UsageService {
         return years
     }
 
-    suspend fun updateUsage() {
-        dao.executeProc("update_usage");
+    fun updateUsage(): Mono<MutableMap<String, Any>> {
+        return dao.executeProc("update_usage")
     }
 }
+
+private fun <T> Mono<T>.then(findByYearOrderByMonthAsc: Flux<Usage>): Flux<Usage> {
+    return findByYearOrderByMonthAsc
+}
+
+

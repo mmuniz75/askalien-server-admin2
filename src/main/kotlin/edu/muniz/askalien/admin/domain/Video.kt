@@ -19,19 +19,4 @@ data class Video(
 
 {
 
-    fun populate(newObject: Video) {
-        number = newObject.number
-        creationDate = newObject.creationDate
-    }
-
-    fun getFormatedCreationDate(): String? {
-        var date = ""
-        if (creationDate != null) {
-            val dt1 = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            date = dt1.format(creationDate)
-        }
-        return date
-    }
-
-
 }
