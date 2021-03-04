@@ -19,8 +19,8 @@ class UsageService {
     lateinit var dao:StoreProcedureExecutor
 
     fun getUsageFromYear(year: Short): Flux<Usage> {
-        return dao.executeProc("update_usage")
-               .then(repo.findByYearOrderByMonthAsc(year))
+        return  repo.updateUsage()
+                .thenMany(repo.findByYearOrderByMonthAsc(year))
     }
 
     fun getYears(): List<Short> {
@@ -32,13 +32,10 @@ class UsageService {
         return years
     }
 
-    fun updateUsage(): Mono<MutableMap<String, Any>> {
+    fun updateUsage(): Mono<Int> {
         return dao.executeProc("update_usage")
     }
 }
 
-private fun <T> Mono<T>.then(findByYearOrderByMonthAsc: Flux<Usage>): Flux<Usage> {
-    return findByYearOrderByMonthAsc
-}
 
 

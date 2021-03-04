@@ -17,7 +17,7 @@ class ViewService {
     @Autowired
     lateinit var dao: StoreProcedureExecutor
 
-    suspend fun getViewFromYear(year: Short?): Flux<View> {
+    fun getViewFromYear(year: Short?): Flux<View> {
         dao.executeProc("update_view")
         return repo.findByYearOrderByMonthAsc(year)
     }
@@ -31,7 +31,7 @@ class ViewService {
         return years
     }
 
-    suspend fun updateView() {
+    fun updateView() {
         dao.executeProc("update_view")
     }
 }

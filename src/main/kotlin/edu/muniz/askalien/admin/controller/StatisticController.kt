@@ -31,12 +31,12 @@ class StatisticController {
     }
 
     @GetMapping("/admin/usage/{year}")
-    suspend fun getUsage(@PathVariable year: Short): Flux<Usage> {
+    fun getUsage(@PathVariable year: Short): Flux<Usage> {
         return usageService.getUsageFromYear(year)
     }
 
     @GetMapping("/admin/view/{year}")
-    suspend fun getView(@PathVariable year: Short): Flux<View> {
+    fun getView(@PathVariable year: Short): Flux<View> {
         return viewService.getViewFromYear(year)
     }
 }
