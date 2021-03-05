@@ -13,17 +13,17 @@ class VideoController {
     @Autowired
     lateinit var service: VideoService
 
-    @RequestMapping("/admin/videos")
+    @GetMapping("/admin/videos")
     fun getVideos(): Flux<Video> {
         return service.getList()
     }
 
-    @RequestMapping("/admin/video/{id}")
+    @GetMapping("/admin/video/{id}")
     fun getAnswerDetail(@PathVariable id: Int): Mono<Video> {
         return service.getVideofromNumber(id)
     }
 
-    @RequestMapping(method = [RequestMethod.POST], value = ["/admin2/video"])
+    @PostMapping("/admin2/video")
     fun addAnswer(@RequestBody video: Video): Mono<Video> {
         return service.save(video)
     }

@@ -59,4 +59,25 @@ class StatisticsControllerTests {
 
     }
 
+    @Test
+    fun getViews() {
+        val URL = "/admin/view/2016"
+
+        webTestClient.get()
+                .uri(URL)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.size()").isEqualTo(12)
+                .jsonPath("$[0].year").isEqualTo(2016)
+                .jsonPath("$[0].month").isEqualTo(1)
+                .jsonPath("$[0].number").isEqualTo(1104)
+                .jsonPath("$[0].monthName").isEqualTo("January")
+                .jsonPath("$[11].year").isEqualTo(2016)
+                .jsonPath("$[11].month").isEqualTo(12)
+                .jsonPath("$[11].number").isEqualTo(992)
+                .jsonPath("$[11].monthName").isEqualTo("December")
+
+    }
+
 }
