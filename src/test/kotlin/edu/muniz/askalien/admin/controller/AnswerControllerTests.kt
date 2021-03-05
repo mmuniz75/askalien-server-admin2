@@ -56,8 +56,8 @@ class AnswerControllerTests {
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.size()").isEqualTo(count!!)
-                .jsonPath("$[0].question").isEqualTo(answers!![0].subject!!)
-                .jsonPath("$[$last].question").isEqualTo(answers!![last!!].subject!!)
+                .jsonPath("$[0].subject").isEqualTo(answers!![0].subject!!)
+                .jsonPath("$[$last].subject").isEqualTo(answers!![last!!].subject!!)
     }
 
     @Test

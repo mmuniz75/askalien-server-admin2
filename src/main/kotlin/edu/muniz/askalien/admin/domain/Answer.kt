@@ -9,12 +9,8 @@ import org.springframework.data.relational.core.mapping.Table
 data class Answer (
 
     @Id
-    @JsonProperty("number")
     var id: Int? = null,
-
-    @JsonProperty("question")
     var subject: String? = null,
-
     var content: String? = null,
 
     @JsonProperty("link")
