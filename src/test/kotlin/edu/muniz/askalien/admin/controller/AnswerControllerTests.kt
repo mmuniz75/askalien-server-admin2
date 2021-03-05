@@ -106,7 +106,7 @@ class AnswerControllerTests {
                 .jsonPath("$.number").isEqualTo(2)
                 .jsonPath("$.question").isEqualTo(SUBJECT)
                 .jsonPath("$.content").exists()
-                .jsonPath("$.video.creationDate").isEqualTo("2010-09-10")
+                .jsonPath("$.video.creationDate").isEqualTo("09/10/2010")
                 .jsonPath("$.video.number").isEqualTo(1)
     }
 

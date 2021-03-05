@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>edu.muniz.askalien</groupId>
 	<artifactId>admin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>4.0.0-SNAPSHOT</version>
 	<name>askalien-admin</name>
 	<description>Ask Alien admin</description>
 	<properties>

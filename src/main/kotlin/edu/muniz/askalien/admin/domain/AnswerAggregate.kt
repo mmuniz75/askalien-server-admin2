@@ -24,16 +24,16 @@ data class AnswerAggregate (
     var clicks: Long? = null,
 
     @Column("videoNumber")
-    var videoNumber: Int? = null
-)
-{
-
-    val video: Video
-        get() = Video(number = this.numberFromVideo, creationDate = this.dateFromVideo)
+    var videoNumber: Int? = null,
 
     @Column("numberfromvideo")
-    var numberFromVideo: Int? = null
+    var numberFromVideo: Int? = null,
 
     @Column("datefromvideo")
     var dateFromVideo: LocalDate? = null
+)
+{
+    val video: Video
+        get() = Video(number = this.numberFromVideo, creationDate = this.dateFromVideo)
+
 }

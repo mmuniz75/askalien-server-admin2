@@ -9,7 +9,9 @@ import reactor.core.publisher.Mono
 
 interface QuestionRepository : ReactiveCrudRepository<Question, Integer>,QuestionCustomizedRepository{
 
-    @Query("select * from Question question inner JOIN answer on question.answer_id = answer.id where question.id=:id")
+    @Query("""select *,video.creationdate as videodate from Question question inner JOIN answer on question.answer_id = answer.id 
+                    inner JOIN video on video.id = answer.videonumber
+                    where question.id=:id""")
     fun findQuestionById(id: Int): Mono<QuestionAggregate>
 
     fun findByAnswerIdAndFeedbackIsNotNull(id: Int): Flux<Question>

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Table
 import java.text.SimpleDateFormat
 import org.springframework.data.relational.core.mapping.Column
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 @Table("question")
@@ -35,11 +36,15 @@ data class QuestionAggregate (
 
     var countUsers: Long? = null
 
-    val answer: Answer
-        get() = Answer(content = this.content, subject = this.subject)
+    val answer: AnswerAggregate
+        get() = AnswerAggregate(content = this.content, subject = this.subject, numberFromVideo= this.number, dateFromVideo = this.videodate)
 
     var content: String? = null
 
     var subject: String? = null
+
+    var number: Int? = null
+
+    var videodate: LocalDate? = null
 
 }
