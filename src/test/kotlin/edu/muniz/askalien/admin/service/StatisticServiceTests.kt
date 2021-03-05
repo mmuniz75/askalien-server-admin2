@@ -24,4 +24,5 @@ class StatisticServiceTests {
         assertTrue(dto?.totalAnswers!! >= 1200)
         assertTrue(dto?.totalCountries!! >= 100)
     }
+
 }

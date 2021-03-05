@@ -94,7 +94,47 @@ class VideoControllerTests {
             ex.printStackTrace()
             throw ex
         } finally {
-            if (id != null) repo.deleteById(id)
+            if (id != null) repo.deleteById(id).block()
+        }
+    }
+
+    @Test
+    fun updateVideo() {
+        val NUMBER = -1
+        val CREATION_DATE = LocalDate.of(2100, 7, 15)
+        val NUMBER_UPDATED = -10
+        val CREATION_DATE_UPDATED = LocalDate.of(2110, 8, 12)
+
+        var video = Video(number = NUMBER, creationDate = CREATION_DATE)
+        video = repo.save(video).block()!!
+        val id = video.id
+
+        try {
+            video = repo.findById(id!!).block()!!
+
+            video.apply {
+                number = NUMBER_UPDATED
+                creationDate = CREATION_DATE_UPDATED
+            }
+
+            webTestClient.post()
+                    .uri("/admin2/video")
+                    .body(Mono.just(video), Video::class.java)
+                    .exchange()
+                    .expectStatus().isOk()
+
+            video = repo.findById(id!!).block()!!
+
+            video.apply {
+                assertEquals(number, NUMBER_UPDATED)
+                assertTrue(creationDate?.compareTo(CREATION_DATE_UPDATED) == 0)
+            }
+
+        }catch (ex : Exception){
+            ex.printStackTrace()
+            throw ex
+        } finally {
+            if (id != null) repo.deleteById(id).block()
         }
     }
 

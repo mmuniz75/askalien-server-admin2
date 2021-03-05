@@ -4,6 +4,7 @@ import edu.muniz.askalien.admin.dao.StoreProcedureExecutor
 import edu.muniz.askalien.admin.domain.Question
 import edu.muniz.askalien.admin.repository.QuestionRepository
 import edu.muniz.askalien.admin.repository.UsageRepository
+import edu.muniz.askalien.admin.repository.ViewRepository
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,6 +25,9 @@ class StatisticsControllerTests {
 
     @Autowired
     lateinit var repo: UsageRepository
+
+    @Autowired
+    lateinit var repoView: ViewRepository
 
     @Autowired
     lateinit var questionRepo: QuestionRepository
@@ -128,6 +132,43 @@ class StatisticsControllerTests {
             if (questionId!! > 0) {
                 questionRepo.deleteById(questionId!!).block()
                 dao.executeProc("update_usage").block()
+            }
+        }
+
+    }
+
+    @Test
+    fun testUpdateView() {
+        val now = LocalDate.now();
+        val year = now.year
+        val month = now.month.value - 1
+
+        var questionId : Integer? = null
+        try{
+
+            val statitcs = repoView.findByYearOrderByMonthAsc(year.toShort()).collectList().block()
+            val number = statitcs?.get(month)?.number!!
+
+            var question = Question(text = "some question", ip = "1.2.3.4.5")
+            question = questionRepo.save(question).block()!!
+            questionId = question.id
+
+            val URL = "/admin/view/${year}"
+            webTestClient.get()
+                    .uri(URL)
+                    .exchange()
+                    .expectStatus().isOk()
+                    .expectBody()
+                    .jsonPath("$[$month].number").isEqualTo(number!! + 1)
+
+        }catch (ex : Exception){
+            ex.printStackTrace()
+            throw ex
+
+        } finally {
+            if (questionId!! > 0) {
+                questionRepo.deleteById(questionId!!).block()
+                dao.executeProc("update_view").block()
             }
         }
 
