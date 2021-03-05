@@ -1,5 +1,9 @@
 package edu.muniz.askalien.admin.controller
 
+import edu.muniz.askalien.admin.dao.StoreProcedureExecutor
+import edu.muniz.askalien.admin.domain.Question
+import edu.muniz.askalien.admin.repository.QuestionRepository
+import edu.muniz.askalien.admin.repository.UsageRepository
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -7,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.reactive.server.WebTestClient
+import java.time.LocalDate
 
 
 @RunWith(SpringRunner::class)
@@ -16,6 +21,15 @@ class StatisticsControllerTests {
 
     @Autowired
     lateinit var webTestClient: WebTestClient
+
+    @Autowired
+    lateinit var repo: UsageRepository
+
+    @Autowired
+    lateinit var questionRepo: QuestionRepository
+
+    @Autowired
+    lateinit var dao: StoreProcedureExecutor
 
     @Test
     fun getStatistics() {
@@ -77,6 +91,45 @@ class StatisticsControllerTests {
                 .jsonPath("$[11].month").isEqualTo(12)
                 .jsonPath("$[11].number").isEqualTo(992)
                 .jsonPath("$[11].monthName").isEqualTo("December")
+
+    }
+
+    @Test
+    fun testUpdateUsage() {
+        val now = LocalDate.now();
+        val year = now.year
+        val month = now.month.value - 1
+
+        var questionId : Integer? = null
+        try{
+
+            val statitcs = repo.findByYearOrderByMonthAsc(year.toShort()).collectList().block()
+            val numberUsers = statitcs?.get(month)?.numberUsers!!
+            val newUsers = statitcs?.get(month)?.newUsers!!
+
+            var question = Question(text = "some question", ip = "1.2.3.4.5")
+            question = questionRepo.save(question).block()!!
+            questionId = question.id
+
+            val URL = "/admin/usage/${year}"
+            webTestClient.get()
+                    .uri(URL)
+                    .exchange()
+                    .expectStatus().isOk()
+                    .expectBody()
+                    .jsonPath("$[$month].numberUsers").isEqualTo(numberUsers!! + 1)
+                    .jsonPath("$[$month].newUsers").isEqualTo(newUsers + 1)
+
+        }catch (ex : Exception){
+            ex.printStackTrace()
+            throw ex
+
+        } finally {
+            if (questionId!! > 0) {
+                questionRepo.deleteById(questionId!!).block()
+                dao.executeProc("update_usage").block()
+            }
+        }
 
     }
 
