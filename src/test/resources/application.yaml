@@ -1,6 +1,15 @@
 spring:
   r2dbc:
     url: r2dbc:postgres://postgres:postgres@localhost:5432/mythidb
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost/.well-known/jwks.json
 
   codec:
     max-in-memory-size: 10MB
+
+application:
+  website: http://localhost:4200
+
