@@ -3,6 +3,7 @@ package edu.muniz.askalien.admin.services
 import edu.muniz.askalien.admin.domain.Answer
 import edu.muniz.askalien.admin.domain.AnswerAggregate
 import edu.muniz.askalien.admin.domain.AnswerSummary
+import edu.muniz.askalien.admin.exception.NotFoundException
 import edu.muniz.askalien.admin.repository.AnswerRepository
 import edu.muniz.askalien.admin.repository.VideoRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -49,6 +50,7 @@ class AnswerService {
 
     private fun saveOrUpdate(answer: Answer, save: Boolean): Mono<Answer> {
        return  videoRepository.findByNumber(answer.videoNumber!!)
+               .switchIfEmpty(Mono.error(NotFoundException("Video não encontrado")))
                .map{
                      answer.videoNumber = it.id
                      answer
