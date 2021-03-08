@@ -49,7 +49,8 @@ class AnswerService {
 
     private fun saveOrUpdate(answer: Answer, save: Boolean): Mono<Answer> {
        return  videoRepository.findByNumber(answer.videoNumber!!)
-               .map{ answer.videoNumber = it.id
+               .map{
+                     answer.videoNumber = it.id
                      answer
                 }
                .flatMap{repo.save(it)}
