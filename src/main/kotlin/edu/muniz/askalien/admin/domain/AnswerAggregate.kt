@@ -10,7 +10,6 @@ import java.time.LocalDate
 data class AnswerAggregate (
 
     @Id
-    @JsonProperty("number")
     var id: Int? = null,
 
     @JsonProperty("question")

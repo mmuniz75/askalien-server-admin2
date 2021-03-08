@@ -10,7 +10,10 @@ data class Answer (
 
     @Id
     var id: Int? = null,
+
+    @JsonProperty("question")
     var subject: String? = null,
+
     var content: String? = null,
 
     @JsonProperty("link")

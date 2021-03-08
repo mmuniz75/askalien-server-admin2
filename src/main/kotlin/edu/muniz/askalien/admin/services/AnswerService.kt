@@ -48,8 +48,11 @@ class AnswerService {
     }
 
     private fun saveOrUpdate(answer: Answer, save: Boolean): Mono<Answer> {
-       return  videoRepository.findById(answer.videoNumber!!)
-               .then(repo.save(answer))
+       return  videoRepository.findByNumber(answer.videoNumber!!)
+               .map{ answer.videoNumber = it.id
+                     answer
+                }
+               .flatMap{repo.save(it)}
     }
 
     fun getTopAnswers(feedBack: Boolean): Flux<AnswerAggregate> {
