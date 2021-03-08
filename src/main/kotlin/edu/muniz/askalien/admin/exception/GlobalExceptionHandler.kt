@@ -14,7 +14,7 @@ import java.util.Map
 @ControllerAdvice
 class GlobalExceptionHandler {
 
-    private val CONFLIT_MSG = Map.of("video_number_unique", "Video já cadastrado"
+    private val CONFLIT_MSG = Map.of("video_number_unique", "Video already exists"
 
     )
 

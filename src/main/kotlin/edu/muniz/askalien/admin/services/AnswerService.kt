@@ -50,7 +50,7 @@ class AnswerService {
 
     private fun saveOrUpdate(answer: Answer, save: Boolean): Mono<Answer> {
        return  videoRepository.findByNumber(answer.videoNumber!!)
-               .switchIfEmpty(Mono.error(NotFoundException("Video não encontrado")))
+               .switchIfEmpty(Mono.error(NotFoundException("Video not found")))
                .map{
                      answer.videoNumber = it.id
                      answer
