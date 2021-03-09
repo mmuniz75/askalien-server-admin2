@@ -5,7 +5,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${AUTHENTICATOR_SERVER}/.well-known/jwks.json
+          jwk-set-uri:  ${AUTHENTICATOR_SERVER}/.well-known/jwks.json
 
 
 logging:

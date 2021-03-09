@@ -56,8 +56,8 @@ class AnswerControllerTests {
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.size()").isEqualTo(count!!)
-                .jsonPath("$[0].subject").isEqualTo(answers!![0].subject!!)
-                .jsonPath("$[$last].subject").isEqualTo(answers!![last!!].subject!!)
+                .jsonPath("$[0].question").isEqualTo(answers!![0].subject!!)
+                .jsonPath("$[$last].question").isEqualTo(answers!![last!!].subject!!)
     }
 
     @Test
@@ -82,10 +82,10 @@ class AnswerControllerTests {
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.size()").isEqualTo(count!!)
-                .jsonPath("$[0].number").isEqualTo(answers!![0].id!!.toInt())
+                .jsonPath("$[0].id").isEqualTo(answers!![0].id!!.toInt())
                 .jsonPath("$[0].question").isEqualTo(answers!![0].subject!!)
                 .jsonPath("$[0].clicks").isEqualTo(answers!![0].clicks!!.toInt())
-                .jsonPath("$[$last].number").isEqualTo(answers!![last!!].id!!.toInt())
+                .jsonPath("$[$last].id").isEqualTo(answers!![last!!].id!!.toInt())
                 .jsonPath("$[$last].question").isEqualTo(answers!![last!!].subject!!)
                 .jsonPath("$[$last].clicks").isEqualTo(answers!![last!!].clicks!!.toInt())
 
@@ -103,10 +103,10 @@ class AnswerControllerTests {
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
-                .jsonPath("$.number").isEqualTo(2)
+                .jsonPath("$.id").isEqualTo(2)
                 .jsonPath("$.question").isEqualTo(SUBJECT)
                 .jsonPath("$.content").exists()
-                .jsonPath("$.video.creationDate").isEqualTo("09/10/2010")
+                .jsonPath("$.video.creationDate").isEqualTo("2010-09-10")
                 .jsonPath("$.video.number").isEqualTo(1)
     }
 
@@ -122,7 +122,7 @@ class AnswerControllerTests {
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.id").isEqualTo(2)
-                .jsonPath("$.subject").isEqualTo(SUBJECT)
+                .jsonPath("$.question").isEqualTo(SUBJECT)
 
     }
 
