@@ -21,15 +21,15 @@ class OAuth2SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeExchange()
-                .pathMatchers("/admin/**").access { auth: Mono<Authentication?>, context: AuthorizationContext? ->
-                    auth
-                    .flatMap {hasAuthority(auth, listOf("admin","guest"))}
-                    .map { granted: Boolean? -> AuthorizationDecision(granted!!) }
-                }
                 .pathMatchers("/admin2/**").access { auth: Mono<Authentication?>, context: AuthorizationContext? ->
                     auth
                             .flatMap {hasAuthority(auth, listOf("admin"))}
                             .map { granted: Boolean? -> AuthorizationDecision(granted!!) }
+                }
+                .pathMatchers("/admin/**").access { auth: Mono<Authentication?>, context: AuthorizationContext? ->
+                    auth
+                    .flatMap {hasAuthority(auth, listOf("admin","guest"))}
+                    .map { granted: Boolean? -> AuthorizationDecision(granted!!) }
                 }
                 .and()
                 .oauth2ResourceServer()
