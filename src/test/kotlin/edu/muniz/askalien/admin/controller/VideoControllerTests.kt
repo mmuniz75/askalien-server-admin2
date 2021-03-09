@@ -45,9 +45,9 @@ class VideoControllerTests {
                 .expectBody()
                 .jsonPath("$.size()").isEqualTo(count)
                 .jsonPath("$[0].id").isEqualTo(videos[0].id!!)
-                .jsonPath("$[0].creationDate").isEqualTo(videos[0].creationDate!!.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
+                .jsonPath("$[0].creationDate").isEqualTo(videos[0].creationDate!!.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .jsonPath("$[$last].id").isEqualTo(videos[last].id!!)
-                .jsonPath("$[$last].creationDate").isEqualTo(videos[last].creationDate!!.format(DateTimeFormatter.ofPattern("MM/dd/yyyy")))
+                .jsonPath("$[$last].creationDate").isEqualTo(videos[last].creationDate!!.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
 
     }
 
@@ -61,7 +61,7 @@ class VideoControllerTests {
                 .expectStatus().isOk()
                 .expectBody()
                 .jsonPath("$.number").isEqualTo(100)
-                .jsonPath("$.creationDate").isEqualTo("04/22/2013")
+                .jsonPath("$.creationDate").isEqualTo("2013-04-22")
     }
 
     @Test
