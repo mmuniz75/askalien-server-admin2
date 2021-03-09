@@ -6,7 +6,6 @@ import org.springframework.security.authorization.AuthorizationDecision
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.Authentication
-import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.authorization.AuthorizationContext
@@ -46,9 +45,7 @@ class OAuth2SecurityConfig {
                 .cast(JSONArray::class.java)
                 .map { arr -> arr[0] }
                 .map { obj -> obj.toString() }
-                .map { str ->
-                    print(str)
-                    authorities.contains(str) }
+                .map { str -> authorities.contains(str) }
     }
 
 
