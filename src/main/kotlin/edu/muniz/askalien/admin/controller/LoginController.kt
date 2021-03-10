@@ -6,6 +6,12 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class LoginController {
 
+
+    @GetMapping("/wakeup")
+    fun wake() : String {
+        return "started"
+    }
+
     @PostMapping("/login")
         fun login(@RequestBody user: UserDTO): UserDTO {
             val USER_GUEST = System.getenv("USER_GUEST")
