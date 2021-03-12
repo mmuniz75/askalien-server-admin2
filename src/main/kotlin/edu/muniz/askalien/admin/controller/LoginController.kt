@@ -1,5 +1,6 @@
 package edu.muniz.askalien.admin.controller
 
+import edu.muniz.askalien.admin.domain.Question
 import edu.muniz.askalien.admin.dto.UserDTO
 import org.springframework.web.bind.annotation.*
 
@@ -8,8 +9,8 @@ class LoginController {
 
 
     @GetMapping("/wakeup")
-    fun wake() : String {
-        return "started"
+    fun wake() : Question {
+        return Question()
     }
 
     @PostMapping("/login")
