@@ -22,11 +22,14 @@ data class Usage(
 {
     val monthName
         get(): String? {
-                        val months = DateFormatSymbols(Locale.US).months
+                        if(month == null)
+                            return year.toString()
+
+                        val months = DateFormatSymbols(Locale.US).shortMonths
                         return months[month!! - 1]
                         }
 
     val oldUsers
-        get() = numberUsers?.minus(newUsers!!)
+        get() = numberUsers?.minus(newUsers?:0)
 
 }

@@ -23,6 +23,11 @@ class UsageService {
                 .thenMany(repo.findByYearOrderByMonthAsc(year))
     }
 
+    fun getUsageAllYears(): Flux<Usage> {
+        return  repo.updateUsage()
+                .thenMany(repo.countAll())
+    }
+
     fun getYears(): List<Short> {
         val years: MutableList<Short> = ArrayList()
         val currentYear = Calendar.getInstance()[Calendar.YEAR]
