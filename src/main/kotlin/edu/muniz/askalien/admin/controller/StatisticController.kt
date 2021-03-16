@@ -44,4 +44,9 @@ class StatisticController {
     fun getView(@PathVariable year: Short): Flux<View> {
         return viewService.getViewFromYear(year)
     }
+
+    @GetMapping("/admin/view")
+    fun getAllView(): Flux<View> {
+        return viewService.getViewAllYears()
+    }
 }

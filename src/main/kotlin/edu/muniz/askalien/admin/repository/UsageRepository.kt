@@ -10,7 +10,10 @@ interface  UsageRepository : ReactiveCrudRepository<Usage, Integer>{
 
     fun findByYearOrderByMonthAsc(year: Short): Flux<Usage>
 
-    @Query("select year, sum(newusers) as newusers, sum(numberusers) as numberusers from usage group by year order by 1")
+    @Query("""select year, sum(newusers) as newusers, sum(numberusers) as numberusers
+                    from usage 
+                    group by year 
+                    order by 1""")
     fun countAll(): Flux<Usage>
 
     @Query("select update_usage()")

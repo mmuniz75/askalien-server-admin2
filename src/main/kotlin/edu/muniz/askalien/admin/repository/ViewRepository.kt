@@ -13,4 +13,10 @@ interface ViewRepository : ReactiveCrudRepository<View, Integer>{
     @Query("select update_view()")
     fun updateView() : Mono<Int>
 
+    @Query("""select year, sum(number) as number  
+                   from view_question  
+                   group by year 
+                   order by 1""")
+    fun countAll(): Flux<View>;
+
 }

@@ -11,12 +11,15 @@ data class View (
     @Id
     val id: Int?,
     val year: Short?,
-    val month: Byte,
-    val number: Long
+    val month: Byte?,
+    val number: Long?
 ){
     val monthName
         get(): String? {
-            val months = DateFormatSymbols(Locale.US).months
+            if(month == null)
+                return year.toString()
+
+            val months = DateFormatSymbols(Locale.US).shortMonths
             return months[month!! - 1]
         }
 }
