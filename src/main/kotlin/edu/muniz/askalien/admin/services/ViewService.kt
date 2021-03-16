@@ -32,4 +32,9 @@ class ViewService {
     fun updateView(): Mono<Int> {
         return repo.updateView()
     }
+
+    fun getViewAllYears(): Flux<View> {
+        return repo.updateView()
+                .thenMany(repo.countAll())
+    }
 }
