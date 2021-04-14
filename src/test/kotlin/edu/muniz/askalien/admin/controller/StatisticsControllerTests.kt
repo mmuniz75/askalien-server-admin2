@@ -66,13 +66,13 @@ class StatisticsControllerTests {
                 .jsonPath("$[0].month").isEqualTo(1)
                 .jsonPath("$[0].numberUsers").isEqualTo(69)
                 .jsonPath("$[0].newUsers").isEqualTo(49)
-                .jsonPath("$[0].monthName").isEqualTo("January")
+                .jsonPath("$[0].monthName").isEqualTo("Jan")
                 .jsonPath("$[0].oldUsers").isEqualTo(20)
                 .jsonPath("$[11].year").isEqualTo(2016)
                 .jsonPath("$[11].month").isEqualTo(12)
                 .jsonPath("$[11].numberUsers").isEqualTo(72)
                 .jsonPath("$[11].newUsers").isEqualTo(60)
-                .jsonPath("$[11].monthName").isEqualTo("December")
+                .jsonPath("$[11].monthName").isEqualTo("Dec")
                 .jsonPath("$[11].oldUsers").isEqualTo(12)
 
     }
@@ -90,11 +90,11 @@ class StatisticsControllerTests {
                 .jsonPath("$[0].year").isEqualTo(2016)
                 .jsonPath("$[0].month").isEqualTo(1)
                 .jsonPath("$[0].number").isEqualTo(1104)
-                .jsonPath("$[0].monthName").isEqualTo("January")
+                .jsonPath("$[0].monthName").isEqualTo("Jan")
                 .jsonPath("$[11].year").isEqualTo(2016)
                 .jsonPath("$[11].month").isEqualTo(12)
                 .jsonPath("$[11].number").isEqualTo(992)
-                .jsonPath("$[11].monthName").isEqualTo("December")
+                .jsonPath("$[11].monthName").isEqualTo("Dec")
 
     }
 

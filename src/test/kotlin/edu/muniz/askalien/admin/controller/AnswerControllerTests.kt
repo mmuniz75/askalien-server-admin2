@@ -1,6 +1,7 @@
 package edu.muniz.askalien.admin.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import edu.muniz.askalien.admin.config.OAuth2SecurityConfig
 import edu.muniz.askalien.admin.domain.Answer
 import edu.muniz.askalien.admin.repository.AnswerRepository
 import edu.muniz.askalien.admin.services.AnswerService
@@ -12,7 +13,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.annotation.Profile
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit4.SpringRunner
