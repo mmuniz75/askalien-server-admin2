@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: test
   r2dbc:
     url: r2dbc:postgres://postgres:postgres@localhost:5432/mythidb
   security:
@@ -13,3 +15,6 @@ spring:
 application:
   website: http://localhost:4200
 
+security:
+  basic:
+    enabled: false
