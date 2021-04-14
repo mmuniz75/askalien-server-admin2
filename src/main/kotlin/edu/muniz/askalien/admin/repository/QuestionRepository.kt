@@ -7,7 +7,7 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-interface QuestionRepository : ReactiveCrudRepository<Question, Integer>,QuestionCustomizedRepository{
+interface QuestionRepository : ReactiveCrudRepository<Question, Integer>{
 
     @Query("""select *,video.creationdate as videodate from Question question inner JOIN answer on question.answer_id = answer.id 
                     inner JOIN video on video.id = answer.videonumber

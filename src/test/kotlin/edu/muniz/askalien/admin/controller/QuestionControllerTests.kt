@@ -1,5 +1,6 @@
 package edu.muniz.askalien.admin.controller
 
+import edu.muniz.askalien.admin.dao.QuestionDAO
 import edu.muniz.askalien.admin.repository.QuestionFilter
 import edu.muniz.askalien.admin.repository.QuestionRepository
 import org.hamcrest.CoreMatchers
@@ -32,6 +33,9 @@ class QuestionControllerTests {
 
     @Autowired
     lateinit var repo : QuestionRepository
+
+    @Autowired
+    lateinit var dao : QuestionDAO
 
     @Autowired
     lateinit var webTestClient: WebTestClient
@@ -132,7 +136,7 @@ class QuestionControllerTests {
     @Test
     fun getQuestionsByAnswer() {
         val filter = QuestionFilter(answerId = 198)
-        val questions = repo.findAll(filter).collectList().block()!!
+        val questions = dao.findAll(filter).collectList().block()!!
 
         val count = questions.size
         val last = count - 1
