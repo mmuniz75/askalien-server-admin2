@@ -7,13 +7,15 @@ import java.lang.Boolean
 import java.util.*
 
 @SpringBootApplication
-class AdminApplication
+class AskalienAdminApplication
 
 fun main(args: Array<String>) {
-
+/*
 	if (Objects.nonNull(System.getenv("BLOCKHOUND")) && Boolean.valueOf(System.getenv("BLOCKHOUND"))) {
 		BlockHound.install()
 	}
-
-	runApplication<AdminApplication>(*args)
+	*/
+	runApplication<AskalienAdminApplication>(*args)
 }
+
+
