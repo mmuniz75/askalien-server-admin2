@@ -1,5 +1,6 @@
 package edu.muniz.askalien.admin.services
 
+import edu.muniz.askalien.admin.dao.QuestionDAO
 import edu.muniz.askalien.admin.domain.Question
 import edu.muniz.askalien.admin.domain.QuestionAggregate
 import edu.muniz.askalien.admin.repository.QuestionFilter
@@ -15,8 +16,11 @@ class QuestionService {
     @Autowired
     lateinit var  questionRepo: QuestionRepository
 
+    @Autowired
+    lateinit var  questionDAO: QuestionDAO
+
     fun getQuestions(filter: QuestionFilter): Flux<Question> {
-        return questionRepo.findAll(filter)
+        return questionDAO.findAll(filter)
     }
 
     fun getQuestion(id: Int): Mono<QuestionAggregate> {

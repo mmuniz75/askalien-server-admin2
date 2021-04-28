@@ -16,7 +16,7 @@ import java.util.List
 class CorsGlobalConfiguration {
 
     @Value("\${application.website}")
-    private val servers: String? = null
+    private lateinit var servers: String
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource? {
