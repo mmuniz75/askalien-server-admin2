@@ -75,7 +75,6 @@
 			<artifactId>spring-native</artifactId>
 			<version>${spring-native.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>io.projectreactor.tools</groupId>
 			<artifactId>blockhound</artifactId>
