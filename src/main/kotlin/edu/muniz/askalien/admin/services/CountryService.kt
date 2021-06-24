@@ -17,45 +17,26 @@ class CountryService {
     private val mapCountries: MutableMap<String, String> = HashMap()
 
     constructor(){
-
+        Locale.setDefault(Locale.ENGLISH)
         for (locale in Locale.getAvailableLocales()) {
             if (locale.country != null && !locale.country.equals("")) {
                 mapCountries[locale.displayCountry.toUpperCase()] = locale.country.toLowerCase()
             }
         }
 
-        mapCountries["NEPAL"] = "ne"
-        mapCountries["BARBADOS"] = "bb"
-        mapCountries["GEORGIA"] = "ka"
-        mapCountries["TRINIDAD AND TOBAGO"] = "tt"
-        mapCountries["KAZAKHSTAN"] = "kk"
-        mapCountries["CAPE VERDE"] = "cv"
-        mapCountries["MADAGASCAR"] = "mg"
-        mapCountries["GUAM"] = "gu"
-        mapCountries["NIGERIA"] = "ng"
-        mapCountries["GUYANA"] = "gy"
-        mapCountries["SYRIAN ARAB REPUBLIC"] = "sy"
-        mapCountries["KYRGYZSTAN"] = "kg"
-        mapCountries["BOTSWANA"] = "bw"
-        mapCountries["AZERBAIJAN"] = "az"
-        mapCountries["SURINAME"] = "sr"
-        mapCountries["ARMENIA"] = "hy"
-        mapCountries["BELIZE"] = "bz"
-        mapCountries["BANGLADESH"] = "bd"
-        mapCountries["TANZANIA"] = "tz"
-        mapCountries["MONGOLIA"] = "mn"
-        mapCountries["IRAN"] = "ir"
-        mapCountries["ZIMBABWE"] = "zw"
-        mapCountries["CAMBODIA"] = "kh"
-        mapCountries["SRI LANKA"] = "lk"
-        mapCountries["MOZAMBIQUE"] = "mz"
-        mapCountries["GEORGIA"] = "ge"
-        mapCountries["KAZAKHSTAN"] = "kz"
-        mapCountries["NEPAL"] = "np"
-        mapCountries["ARMENIA"] = "am"
-        mapCountries["KENYA"] = "ke"
-        //mapCountries.put("REPUBLIC OF LITHUANIA","lt");
-        mapCountries["CAYMAN ISLANDS"] = "ky"
+        mapCountries.put("MACEDONIA","mk");
+        mapCountries.put("HONG KONG","hk");
+        mapCountries.put("TRINIDAD AND TOBAGO","tt");
+        mapCountries.put("REPUBLIC OF LITHUANIA","lt");
+        mapCountries.put("REPUBLIC OF KOREA","kr");
+        mapCountries.put("SYRIAN ARAB REPUBLIC","sy");
+        mapCountries.put("CZECH REPUBLIC","cz");
+        mapCountries.put("BOSNIA AND HERZEGOVINA","ba");
+        mapCountries.put("EUROPEAN UNION","eu");
+        mapCountries.put("ANONYMOUS PROXY","a1");
+        mapCountries.put("ASIA/PACIFIC REGION","ap");
+        mapCountries.put("YUGOSLAVIA","yu");
+
     }
 
     fun getCountryCode(country: String): String? {
