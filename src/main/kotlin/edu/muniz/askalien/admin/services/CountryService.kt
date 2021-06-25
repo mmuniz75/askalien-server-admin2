@@ -14,30 +14,8 @@ import kotlin.collections.HashMap
 @Service
 class CountryService {
 
-    private val mapCountries: MutableMap<String, String> = HashMap()
-
-    constructor(){
-        Locale.setDefault(Locale.ENGLISH)
-        for (locale in Locale.getAvailableLocales()) {
-            if (locale.country != null && !locale.country.equals("")) {
-                mapCountries[locale.displayCountry.toUpperCase()] = locale.country.toLowerCase()
-            }
-        }
-
-        mapCountries.put("MACEDONIA","mk");
-        mapCountries.put("HONG KONG","hk");
-        mapCountries.put("TRINIDAD AND TOBAGO","tt");
-        mapCountries.put("REPUBLIC OF LITHUANIA","lt");
-        mapCountries.put("REPUBLIC OF KOREA","kr");
-        mapCountries.put("SYRIAN ARAB REPUBLIC","sy");
-        mapCountries.put("CZECH REPUBLIC","cz");
-        mapCountries.put("BOSNIA AND HERZEGOVINA","ba");
-        mapCountries.put("EUROPEAN UNION","eu");
-        mapCountries.put("ANONYMOUS PROXY","a1");
-        mapCountries.put("ASIA/PACIFIC REGION","ap");
-        mapCountries.put("YUGOSLAVIA","yu");
-
-    }
+    @Autowired
+    lateinit var mapCountries: MutableMap<String, String>
 
     fun getCountryCode(country: String): String? {
         var code = mapCountries[country]
