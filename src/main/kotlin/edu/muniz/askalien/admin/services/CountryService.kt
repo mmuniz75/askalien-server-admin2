@@ -1,26 +1,46 @@
 package edu.muniz.askalien.admin.services
 
+
+import edu.muniz.askalien.admin.*
 import edu.muniz.askalien.admin.domain.Country
+import edu.muniz.askalien.admin.native.NativeLanguageFeature
 import edu.muniz.askalien.admin.repository.CountryRepository
+import org.graalvm.nativeimage.ImageSingletons
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.Locale
-
+import java.util.*
 import java.util.function.Function
-import kotlin.collections.HashMap
+
 
 @Service
 class CountryService {
 
+    private val logger = LoggerFactory.getLogger(javaClass)
+
     private val mapCountries: MutableMap<String, String> = HashMap()
+
+    fun getAvailableLocales(): Array<Locale> {
+        if (Objects.nonNull(System.getenv("NATIVE"))) {
+            if (ImageSingletons.contains(NativeLanguageFeature.SupportedLocales::class.java)) {
+                val lookup: NativeLanguageFeature.SupportedLocales =
+                    ImageSingletons.lookup(NativeLanguageFeature.SupportedLocales::class.java)
+                return lookup.locales
+            }
+        }
+
+        return Locale.getAvailableLocales()
+    }
 
     constructor(){
         Locale.setDefault(Locale.ENGLISH)
-        for (locale in Locale.getAvailableLocales()) {
+
+        for (locale in getAvailableLocales()) {
             if (locale.country != null && !locale.country.equals("")) {
-                mapCountries[locale.displayCountry.toUpperCase()] = locale.country.toLowerCase()
+                println(locale.displayCountry.uppercase(Locale.getDefault()))
+                mapCountries[locale.displayCountry.uppercase(Locale.getDefault())] = locale.country.lowercase(Locale.getDefault())
             }
         }
 
