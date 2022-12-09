@@ -17,17 +17,22 @@ pipeline {
             sh 'mvn clean spring-boot:build-image'
          }
       }
-      stage('Push Heroku') {
-         steps {
-           sh 'heroku container:login'
-           sh "heroku container:push web -a askalien-admin2"
+        stage('Registry Docker image') {
+            steps {
+              sh 'docker tag askalien-admin:4.1.1 mmuniz/askalien-admin:4.1.1'
+              sh 'docker push mmuniz/askalien-admin:4.1.1'
+            }
          }
-      }
-       stage('Release Heroku') {
-           steps {
-              sh 'heroku container:release web --app askalien-admin2'
-           }
-        }
+       stage('Login fly.io') {
+          steps {
+            sh 'flyctl auth login'
+          }
+       }
+        stage('Push fly.io') {
+            steps {
+               sh 'flyctl deploy'
+            }
+         }
    }
 }
 
