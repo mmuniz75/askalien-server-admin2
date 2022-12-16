@@ -6,10 +6,10 @@ kill_timeout = 5
 processes = []
 
 [build]
-  image = "mmuniz/askalien-admin:4.1.1"
+  image = "mmuniz/askalien-admin:4.1.2"
 
 [env]
-    APPLICATION_WEBSITE="http://admin.askalien.muniz-api.top"
+    APPLICATION_WEBSITE="*"
     AUTHENTICATOR_SERVER="https://cognito-idp.us-east-1.amazonaws.com/us-east-1_vXjuddh4O"
 
 [experimental]

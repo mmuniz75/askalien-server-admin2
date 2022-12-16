@@ -14,13 +14,13 @@ pipeline {
       }
       stage('Build image') {
          steps {
-            sh 'mvn clean spring-boot:build-image'
+            sh 'mvn clean spring-boot:build-image -DskipTests'
          }
       }
         stage('Registry Docker image') {
             steps {
-              sh 'docker tag askalien-admin:4.1.1 mmuniz/askalien-admin:4.1.1'
-              sh 'docker push mmuniz/askalien-admin:4.1.1'
+              sh 'docker tag askalien-admin:4.2.1 mmuniz/askalien-admin:4.2.1'
+              sh 'docker push mmuniz/askalien-admin:4.2.1'
             }
          }
        stage('Login fly.io') {
