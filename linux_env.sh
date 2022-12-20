@@ -5,6 +5,6 @@ export AUTHENTICATOR_SERVER=https://cognito-idp.us-east-1.amazonaws.com/us-east-
 #sudo update-alternatives --config java
 
 mvn clean spring-boot:build-image
-docker tag askalien-admin:4.1.1 mmuniz/askalien-admin:4.1.1
-docker push mmuniz/askalien-admin:4.1.1
+docker tag askalien-admin:4.2.0 mmuniz/askalien-admin:4.2.0
+docker push mmuniz/askalien-admin:4.2.0
 /home/muniz/.fly/bin/flyctl deploy
