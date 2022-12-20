@@ -1,11 +1,8 @@
 package edu.muniz.askalien.admin.services
 
 
-import edu.muniz.askalien.admin.*
 import edu.muniz.askalien.admin.domain.Country
-import edu.muniz.askalien.admin.native.NativeLanguageFeature
 import edu.muniz.askalien.admin.repository.CountryRepository
-import org.graalvm.nativeimage.ImageSingletons
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -23,14 +20,6 @@ class CountryService {
     private val mapCountries: MutableMap<String, String> = HashMap()
 
     fun getAvailableLocales(): Array<Locale> {
-        if (Objects.nonNull(System.getenv("NATIVE"))) {
-            if (ImageSingletons.contains(NativeLanguageFeature.SupportedLocales::class.java)) {
-                val lookup: NativeLanguageFeature.SupportedLocales =
-                    ImageSingletons.lookup(NativeLanguageFeature.SupportedLocales::class.java)
-                return lookup.locales
-            }
-        }
-
         return Locale.getAvailableLocales()
     }
 

@@ -19,8 +19,8 @@ pipeline {
       }
         stage('Registry Docker image') {
             steps {
-              sh 'docker tag askalien-admin:4.2.1 mmuniz/askalien-admin:4.2.1'
-              sh 'docker push mmuniz/askalien-admin:4.2.1'
+              sh 'docker tag askalien-admin:4.2.0 mmuniz/askalien-admin:4.2.0'
+              sh 'docker push mmuniz/askalien-admin:4.2.0'
             }
          }
        stage('Login fly.io') {
